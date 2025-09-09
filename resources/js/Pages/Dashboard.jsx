@@ -1,3 +1,4 @@
+import Addtaskform from '@/Components/Addtaskform';
 import UserProfile from '@/Components/UserProfile';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
@@ -18,6 +19,11 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
+            <div className="py-12">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <Addtaskform />
+            </div>
+        </div>
         </AuthenticatedLayout>
     );
 }
