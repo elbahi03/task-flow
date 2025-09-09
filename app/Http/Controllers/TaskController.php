@@ -33,7 +33,8 @@ class TaskController extends Controller
             'user_id' => $request->user()->id,
             'title' => $request->title,
             'description' => $request->description,
-            'status' => $request->status
+            'status' => $request->status,
+            'assigned_to' => $request->assigned_to
         ]);
 
         //$task = $request->user()->tasks()->create($data);

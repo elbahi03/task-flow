@@ -2,8 +2,13 @@ import Addtaskform from '@/Components/Addtaskform';
 import UserProfile from '@/Components/UserProfile';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { use, useEffect } from 'react';
 
-export default function Dashboard({ auth }) {
+
+export default function Dashboard({ auth , users } ) {
+    useEffect(() => {
+        console.table(users);
+    }, []);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -21,7 +26,7 @@ export default function Dashboard({ auth }) {
             </div>
             <div className="py-12">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Addtaskform />
+                <Addtaskform users={users}/>
             </div>
         </div>
         </AuthenticatedLayout>

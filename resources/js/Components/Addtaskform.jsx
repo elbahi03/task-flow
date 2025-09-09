@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import axios from 'axios';
 
-const Addtaskform = () => {
+const Addtaskform = ({ users }) => {
     
     const [values, setValues] = useState({
         title: '',
         description: '',
         status: '',
+        assigned_to: '',
     });
 
     const [errors, setErrors] = useState({});
@@ -21,6 +22,7 @@ const Addtaskform = () => {
         }));
     };
 
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('values', values);
@@ -32,6 +34,7 @@ const Addtaskform = () => {
                     title: '',
                     description: '',
                     status: 'todo',
+                    assigned_to: '',
                 });
             },
             onError: (errors) => {
@@ -100,6 +103,28 @@ const Addtaskform = () => {
                     </select>
                     {errors.status && (
                         <div className="text-red-500 text-sm mt-1">{errors.status}</div>
+                    )}
+                </div>
+                <div>
+                    <label htmlFor="assigned_to" className="block text-sm font-medium text-gray-700">
+                        Assigned To
+                    </label>
+                    <select
+                        id="assigned_to"
+                        value={values.assigned_to}
+                        onChange={handleChange}
+                        required
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    >
+                        <option value=""></option>
+                        {users?.map((user) => (
+                            <option key={user.id} value={user.id}>
+                                {user?.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.assigned_to && (
+                        <div className="text-red-500 text-sm mt-1">{errors.assigned_to}</div>
                     )}
                 </div>
                 <div className="flex justify-end">
