@@ -63,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users');
 
+Route::get('/users', [UserController::class, 'index']);
 
 require __DIR__.'/auth.php';
