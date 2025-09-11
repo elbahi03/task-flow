@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +34,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $users = User::all();
     return Inertia::render('Dashboard' , [
-        'users' => $users   
+        'users' => $users, 
+        'user' => Auth::user(), 
+        'roles' => Auth::user()->roles->pluck('name')   
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -53,7 +59,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     Route::put('/tasks/{task}/complete', [TaskController::class, 'markAsCompleted'])->name('tasks.complete');
     Route::put('/tasks/{task}/in-progress', [TaskController::class, 'markAsInProgress'])->name('tasks.in-progress');
+    
+
 });
+
+Route::get('/users', [UserController::class, 'index'])->name('users');
 
 
 require __DIR__.'/auth.php';

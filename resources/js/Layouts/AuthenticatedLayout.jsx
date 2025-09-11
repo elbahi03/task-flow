@@ -7,6 +7,9 @@ import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const roles = user.roles.map(role => role.name);
+    const isAdmin = roles.includes('admin');
+    
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -22,9 +25,15 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                    Task
                                 </NavLink>
+                                {isAdmin && (
+                                    <NavLink href={route('users')} active={route().current('users')}>
+                                    user
+                                    </NavLink>    
+                            )}
                             </div>
+                            
                             
                         </div>
 
